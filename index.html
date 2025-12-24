@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday Sanvi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffddee,#fff6fb);
+  text-align:center;
+  overflow-x:hidden;
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  font-size:22px;
+  animation:floatUp 4s linear infinite;
+  opacity:.7;
+  z-index:999;
+}
+@keyframes floatUp{
+  0%{transform:translateY(0)}
+  100%{transform:translateY(-120vh);opacity:0}
+}
+
+/* Buttons */
+button{
+  padding:12px 26px;
+  background:#ff6f91;
+  color:white;
+  font-size:18px;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  box-shadow:0 6px 20px rgba(255,111,145,.3);
+  margin-top:15px;
+}
+button:hover{
+  transform:scale(1.05);
+  transition:0.2s;
+}
+
+/* Message section */
+#messageSection{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+}
+#couplePhoto{
+  width:260px;
+  border-radius:14px;
+  display:none;
+  margin:20px;
+}
+#typedMessage{
+  background:white;
+  padding:20px;
+  width:85%;
+  max-width:720px;
+  border-radius:14px;
+  font-size:18px;
+}
+
+/* Flipbook */
+#bookSection{display:none;margin-top:30px}
+#flipbook{
+  width:520px;
+  height:700px;
+  margin:auto;
+  animation:glow 3s infinite alternate;
+}
+@keyframes glow{
+  from{box-shadow:0 0 20px rgba(255,105,180,.4)}
+  to{box-shadow:0 0 45px rgba(255,105,180,.7)}
+}
+.page{
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+}
+.page img{
+  max-width:95%;
+  max-height:95%;
+}
+
+/* Last page */
+.last-page{
+  background:linear-gradient(135deg,#fff0f6,#fff);
+  font-size:24px;
+  color:#ff4f88;
+  padding:40px;
+}
+
+/* Cake Page */
+#cakeSection{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  margin-top:50px;
+}
+#emojiCake{
+  font-size:120px;
+}
+#cakeButtons{
+  display:flex;
+  gap:20px;
+  margin-top:20px;
+}
+#cakeMsg{
+  display:none;
+  margin-top:20px;
+  font-size:26px;
+  color:#ff4f88;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Birthday Sanvi 💗</h1>
+
+<button id="startBtn">A Small Message For You 💗</button>
+
+<div id="messageSection">
+  <img id="couplePhoto" src="pic0.jpg">
+  <div id="typedMessage"></div>
+  <button id="surpriseBtn">A Small Surprise 🎁</button>
+</div>
+
+<div id="bookSection">
+  <h2>Your Little Photo Book 📚💗</h2>
+  <div id="flipbook"></div>
+</div>
+
+<div id="cakeSection">
+  <div id="emojiCake">🎂</div>
+  <div id="cakeButtons">
+    <button id="blowBtn">Blow Candles 🎉</button>
+    <button id="cutBtn">Cut Cake 🍴</button>
+  </div>
+  <div id="cakeMsg">Happiest 14th Birthday Sanvii! 🎉💗</div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  // Floating hearts
+  setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💗";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),4000);
+  },500);
+
+  // Elements
+  const startBtn = document.getElementById("startBtn");
+  const messageSection = document.getElementById("messageSection");
+  const couplePhoto = document.getElementById("couplePhoto");
+  const typedMessage = document.getElementById("typedMessage");
+  const surpriseBtn = document.getElementById("surpriseBtn");
+  const bookSection = document.getElementById("bookSection");
+  const cakeSection = document.getElementById("cakeSection");
+
+  // Typing message
+  const msg="Sanvi, you're my favourite person ever. You make my life brighter and happier. Happy Birthday 💗 — Shreyansh";
+  let i=0;
+
+  startBtn.onclick=()=>{
+    startBtn.style.display="none";
+    messageSection.style.display="flex";
+    typeMsg();
+  };
+
+  function typeMsg(){
+    if(i<msg.length){
+      typedMessage.innerHTML+=msg[i++];
+      setTimeout(typeMsg,35);
+    }else{
+      couplePhoto.style.display="block";
+      surpriseBtn.style.display="inline-block";
+    }
+  }
+
+  // Flipbook
+  surpriseBtn.onclick=()=>{
+    messageSection.style.display="none";
+    bookSection.style.display="block";
+    openBook();
+  };
+
+  function openBook(){
+    const fb=document.getElementById("flipbook");
+    fb.innerHTML="";
+
+    for(let n=1;n<=11;n++){
+      let p=document.createElement("div");
+      p.className="page";
+      let img=new Image();
+      img.src=`pic${n}.jpg`;
+      p.appendChild(img);
+      fb.appendChild(p);
+    }
+
+    // Last page with Celebrate button
+    let last=document.createElement("div");
+    last.className="page last-page";
+    last.innerHTML=`
+      No matter how many pages…<br>I choose you 💗<br>
+      <button id="celebrateBtn">Celebrate 🎉🍰</button>
+    `;
+    fb.appendChild(last);
+
+    // Initialize turn.js
+    $('#flipbook').turn({
+      width:520,
+      height:700,
+      autoCenter:true
+    });
+  }
+
+  // Celebrate button - show cake section
+  $(document).on('click', '#celebrateBtn', function(){
+    bookSection.style.display='none';
+    cakeSection.style.display='flex';
+  });
+
+  // Blow candles - confetti/hearts animation
+  $(document).on('click', '#blowBtn', function(){
+    for(let i=0;i<40;i++){
+      let e=$('<div>'+["🎉","💗","🍰"][Math.floor(Math.random()*3)]+'</div>');
+      e.css({
+        position:'fixed',
+        left:Math.random()*100+'vw',
+        top:Math.random()*100+'vh',
+        fontSize:(20+Math.random()*40)+'px'
+      });
+      $('body').append(e);
+      setTimeout(()=>e.remove(),2500);
+    }
+  });
+
+  // Cut cake - show final birthday message
+  $(document).on('click', '#cutBtn', function(){
+    $('#cakeMsg').show();
+  });
+
+});
+</script>
+
+</body>
+</html>
